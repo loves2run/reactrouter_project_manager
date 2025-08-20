@@ -1,4 +1,5 @@
 import ProjectList from "./ProjectList";
+import bjdLogo from "../../../src/assets/bjd-logo-black.png"
 
 export default function SearchAddForm() {
     const styles = {
@@ -42,7 +43,7 @@ export default function SearchAddForm() {
             >
                 <img 
                     className="flex w-full h-auto max-w-28 min-w-16" 
-                    src="src/assets/bjd-logo-black.png" 
+                    src={bjdLogo} 
                     alt="logo for Brandon Johnson Dev" 
                 />
             </section>
