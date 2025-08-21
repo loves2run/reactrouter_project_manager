@@ -10,7 +10,7 @@ const styles = {
 export default function AddEditProjectForm() {
 
     return (
-        <div className="border-2 border-gray-300">
+        <div className="flex w-full p-5 border-2 border-gray-300 rounded-sm">
             <form 
                 className="flex flex-col w-full p-2"
                 action=""
