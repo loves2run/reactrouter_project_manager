@@ -3,7 +3,7 @@ import AddEditProjectForm from "./ProjectForm";
 export default function MainContent() {
 
     return (
-        <main className="basis-2/3 p-2">
+        <main className="flex items-start m-8 w-full h-auto">
             <AddEditProjectForm />
         </main>
     )
