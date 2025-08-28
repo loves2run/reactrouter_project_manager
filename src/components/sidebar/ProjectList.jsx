@@ -3,9 +3,15 @@ export default function ProjectList() {
 
     return(
         <ul className="flex flex-col justify-center items-center gap-1 mt-1.5">
-        <li>Project Manager App</li>
-        <li>Update Linkedin</li>
-        <li>Jame's website</li>
+            <li>
+                <a href={`/projects/1`}>Project Manager App</a>
+            </li>
+            <li>
+                <a href={`/projects/2`}>Update Linkedin</a>
+            </li>
+            <li>
+            <a href={`/projects/3`}>Bullee Excavation Website</a>
+        </li>
     </ul>
     )
 }
