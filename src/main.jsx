@@ -6,7 +6,7 @@ import './index.css'
 import App from './components/App.jsx'
 import ErrorPage from './components/mainContent/Error-Page.jsx';
 import Index from './components/mainContent/Index.jsx';
-import ProjectDisplay from './components/mainContent/ProjectDisplay.jsx';
+import ProjectDisplay from './routes/ProjectDisplay.jsx';
 
 const router = createBrowserRouter([
   {
