@@ -1,10 +1,7 @@
+import { useLoaderData } from "react-router";
 
 export default function ProjectDisplay(){
-    const project = {
-        projectName: "Project Name",
-        description: "Project Description",
-        dueDate: "12/31/25"
-    }
+    const project = useLoaderData();
 
     const styles = {
         formField: "rounded-sm px-2.5 py-1 border-2 border-gray-200",
