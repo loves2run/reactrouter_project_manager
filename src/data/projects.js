@@ -49,6 +49,45 @@ export async function getProject(id) {
     return project || null;
 }
 
+//Create a new project
+export async function createProject(projectData = {}) {
+    await fakeNetwork();
+    let newId = Math.random().toString(36).substring(2,9);
+
+    const newProject = {
+        id: newId,
+        projectName: projectData.projectName || 'Untitled Project',
+        status: projectData.status || "Not started",
+        description: projectData.description || "",
+        dueDate: projectData.dueDate || '',
+    };
+
+    projectsData.unshift(newProject);
+    return newProject;
+}
+
+//Update a project
+export async function updateProject(id, updates) {
+    await fakeNetwork(`updateProject:${id}`);
+
+    const index = projectsData.findIndex(project => project.id === id);
+    if (index === -1) return null;
+
+    projectsData[index] = {...projectsData[index], ...updates };
+    return projectsData[index];
+}
+
+//Delete a project
+export async function deleteProject(id) {
+    await fakeNetwork(`deleteProject:${id}`);
+
+    const index = projectsData.findIndex(project = project.id === id);
+    if (index === -1) return false;
+
+    projectsData.splice(index, 1);
+    return true;
+}
+
 //Search Projects (for future search functionality)
 export async function searchProjects(query) {
     await fakeNetwork(`searchProjects:${query}`);

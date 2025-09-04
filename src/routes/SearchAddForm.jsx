@@ -1,5 +1,12 @@
-import ProjectList from "./ProjectList";
-import bjdLogo from "../../../src/assets/bjd-logo-black.png"
+import { Form } from 'react-router';
+import ProjectList from '../components/sidebar/ProjectList'
+import bjdLogo from "../../src/assets/bjd-logo-black.png"
+import { getProjects, createProject } from '../data/projects.js';
+
+export async function createContactAction() {
+    const project = await createProject();
+    return { project };
+}
 
 export default function SearchAddForm() {
     const styles = {
@@ -21,9 +28,11 @@ export default function SearchAddForm() {
                         className={`w-full ${styles.formField} ${styles.hoverFocusActive}`}
                         type="search"
                         placeholder="Search" 
+                        aria-label="Search contacts"
                     />
                 </form>
-                <form 
+                <Form 
+                    method='post'
                     className="shrink-0"
                     action=""
                 >
@@ -33,7 +42,7 @@ export default function SearchAddForm() {
                     >
                         New
                     </button>
-                </form>
+                </Form>
             </section>
             <section>
                 <ProjectList />

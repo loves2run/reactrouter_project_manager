@@ -1,20 +1,20 @@
 import { createRoot } from 'react-dom/client'
 import { StrictMode } from 'react'
-import { createBrowserRouter } from 'react-router';
-import { RouterProvider } from 'react-router-dom';
+import { createBrowserRouter, RouterProvider } from 'react-router';
 import './index.css'
-import App from './components/App.jsx'
+
+import Root, { rootLoader, rootAction} from './routes/root.jsx';
 import ErrorPage from './components/mainContent/Error-Page.jsx';
-import Index from './components/mainContent/Index.jsx';
-import ProjectDisplay from './routes/ProjectDisplay.jsx';
-import { getProjects, getProject } from './data/projects.js';
+import Index from './routes/Index.jsx';
+import ProjectDisplay, { projectLoader } from './routes/ProjectDisplay.jsx';
 
 const router = createBrowserRouter([
   {
     path: '/',
-    Component: App,
+    Component: Root,
     errorElement: <ErrorPage />,
-    loader: getProjects,
+    loader: rootLoader,
+    action: rootAction,
     children: [
       {
         index: true,
@@ -23,16 +23,7 @@ const router = createBrowserRouter([
       {
         path: 'projects/:projectId',
         Component: ProjectDisplay,
-        loader: async ({ params }) => {
-          const project = await getProject(params.projectId);
-          if (!project) {
-            throw new Response("Project not found", { 
-              status: 404,
-              statusText: "Project not found"
-             });
-          }
-          return project;
-        }
+        loader: projectLoader,
       },
     ],
   },

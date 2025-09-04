@@ -1,4 +1,4 @@
-import SearchAddForm from "./SearchAddForm";
+import SearchAddForm from "../../routes/SearchAddForm";
 
 export default function Sidebar(){
     return (

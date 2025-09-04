@@ -1,4 +1,17 @@
 import { useLoaderData } from "react-router";
+import { getProject } from "../data/projects";
+
+//Project loader- gets single project by ID
+export async function projectLoader({ params }) {
+    const project = await getProject(params.projectId);
+    if(!project) {
+        throw new Response("Project not found", {
+            status: 404,
+            statusText: "Project not found"
+        });
+    }
+    return project;
+}
 
 export default function ProjectDisplay(){
     const project = useLoaderData();
