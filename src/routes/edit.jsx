@@ -1,3 +1,28 @@
+import { 
+    Form, 
+    useLoaderData, 
+    redirect, 
+} from 'react-router';
+import { getProject, updateProject } from '../data/projects.js';
+
+export async function editProjectAction ({ request, params}) {
+    const formData = await request.formData();
+    const updates = Object.fromEntries(formData);
+    console.log("updates:", updates);
+    await updateProject(params.projectId, updates);
+    return redirect(`/projects/${params.projectId}`);
+}
+
+export async function editProjectLoader({ params }) {
+    const project = await updateProject(params.projectId);
+    if(!project) {
+        throw new Response("Project not found", {
+            status: 404,
+            statusText: "Project not found"
+        });
+    }
+    return project;
+}
 
 const styles = {
     formField: "rounded-sm px-2.5 py-1 border-2 border-gray-200",
@@ -8,37 +33,39 @@ const styles = {
 };
 
 export default function AddEditProjectForm() {
+    const { project } = useLoaderData();
 
     return (
         <div className="flex w-full p-5 border-2 border-gray-300 rounded-sm">
-            <form 
+            <Form 
                 className="flex flex-col w-full p-2"
-                action=""
+                method="post"
+                id="projectForm"
             >
                 <h1 className="font-bold text-lg">Add / Edit Project</h1>
                 <div className="mb-1.5">
                     <section>
                         <label 
                             className={`${styles.formLabel} ${styles.hoverFocusActive}`}
-                            htmlFor=""
                         >
                             Project Name
                             <input  
                                 className={`${styles.formField} ${styles.hoverFocusActive}`}
                                 type="text"
+                                aria-label="Project name"
+                                name="projectName"
                             />
                         </label>
                     </section>
                     <section>
                         <label 
                             className={styles.formLabel}
-                            htmlFor=""
                         >
                             Description
                             <textarea 
                                 className={`${styles.formField} ${styles.hoverFocusActive}`}
-                                name="" 
-                                id="" 
+                                aria-label="Project description"
+                                name="description" 
                                 cols="10" 
                                 rows="3"
                                 ></textarea>
@@ -47,12 +74,13 @@ export default function AddEditProjectForm() {
                     <section>
                         <label 
                             className={styles.formLabel}
-                            htmlFor=""
                         >
                             Due Date
                             <input 
                                 className={`${styles.formField} ${styles.hoverFocusActive}`}
                                 type="date"
+                                aria-label="Project due date"
+                                name="dueDate"
                             />
                         </label>
                     </section>
@@ -66,11 +94,12 @@ export default function AddEditProjectForm() {
                     </button>
                     <button
                         className={`${styles.formButton} ${styles.formField} ${styles.saveButton}`}
+                        type="submit"
                     >
                         Save
                     </button>
                 </div>
-            </form>
+            </Form>
         </div>
     )
 }

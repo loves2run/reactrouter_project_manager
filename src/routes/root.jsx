@@ -1,5 +1,5 @@
 // routes/root.js
-import { Outlet, redirect } from 'react-router';
+import { redirect } from 'react-router';
 import Sidebar from '../components/sidebar/Sidebar.jsx';
 import MainContent from '../components/mainContent/MainContent.jsx';
 import { getProjects, createProject } from '../data/projects.js';
@@ -10,16 +10,17 @@ export async function rootLoader() {
 }
 
 // Root action - handles creating new projects
-export async function rootAction({ request }) {
+export async function rootAction() {
     const newProject = await createProject();
-    return redirect(`/projects/${newProject.id}`);
+    return redirect(`/projects/${newProject.id}/edit`);
 }
 
 export default function Root() {
+
     return (
         <div className="flex w-screen h-screen items">
-            <Sidebar />
-            <MainContent />
+                <Sidebar />
+                <MainContent />
         </div>
     );
 }

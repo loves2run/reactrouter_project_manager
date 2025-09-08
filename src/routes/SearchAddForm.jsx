@@ -3,11 +3,6 @@ import ProjectList from '../components/sidebar/ProjectList'
 import bjdLogo from "../../src/assets/bjd-logo-black.png"
 import { getProjects, createProject } from '../data/projects.js';
 
-export async function createContactAction() {
-    const project = await createProject();
-    return { project };
-}
-
 export default function SearchAddForm() {
     const styles = {
         formField: "rounded-sm px-2.5 py-1 bg-white shadow-md border-2 border-transparent",

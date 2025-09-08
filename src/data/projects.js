@@ -58,8 +58,8 @@ export async function createProject(projectData = {}) {
         id: newId,
         projectName: projectData.projectName || 'Untitled Project',
         status: projectData.status || "Not started",
-        description: projectData.description || "",
-        dueDate: projectData.dueDate || '',
+        description: projectData.description || "Description goes here.",
+        dueDate: projectData.dueDate || 'Date goes here.',
     };
 
     projectsData.unshift(newProject);
@@ -81,7 +81,7 @@ export async function updateProject(id, updates) {
 export async function deleteProject(id) {
     await fakeNetwork(`deleteProject:${id}`);
 
-    const index = projectsData.findIndex(project = project.id === id);
+    const index = projectsData.findIndex(project => project.id === id);
     if (index === -1) return false;
 
     projectsData.splice(index, 1);
