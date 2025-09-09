@@ -28,9 +28,9 @@ export default function ProjectDisplay(){
 
     return (
         <div className={`${navigation.state ==='loading' ? styles.loading : ''} ${styles.displayDiv}`}>
-            <h1 className="font-bold text-lg">{project.projectName}</h1>
-            <p>{project.description}</p>
-            <p>{formatDateForDisplay(project.dueDate)}</p>
+            <h1 className="font-bold text-lg">{`Title: ${project.projectName}`}</h1>
+            <p>{`Description:  ${project.description}`}</p>
+            <p>{`Due Date:  ${formatDateForDisplay(project.dueDate)}`}</p>
             <div className="flex justify-end gap-2">
                 <Form action="edit">
                     <button 
