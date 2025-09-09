@@ -2,8 +2,9 @@ import {
     Form, 
     useLoaderData, 
     redirect, 
+    useNavigate,
 } from 'react-router';
-import { getProject, updateProject } from '../data/projects.js';
+import { getProject, updateProject, formatDateForInput } from '../data/projects.js';
 
 export async function editProjectAction ({ request, params}) {
     const formData = await request.formData();
@@ -14,7 +15,8 @@ export async function editProjectAction ({ request, params}) {
 }
 
 export async function editProjectLoader({ params }) {
-    const project = await updateProject(params.projectId);
+    const project = await getProject(params.projectId);
+    console.log("Project to edit:", project);
     if(!project) {
         throw new Response("Project not found", {
             status: 404,
@@ -33,7 +35,10 @@ const styles = {
 };
 
 export default function AddEditProjectForm() {
-    const { project } = useLoaderData();
+    const project  = useLoaderData();
+    const navigate = useNavigate();
+
+    const handleClick = () => {navigate(-1)};
 
     return (
         <div className="flex w-full p-5 border-2 border-gray-300 rounded-sm">
@@ -54,6 +59,7 @@ export default function AddEditProjectForm() {
                                 type="text"
                                 aria-label="Project name"
                                 name="projectName"
+                                defaultValue={project.projectName}
                             />
                         </label>
                     </section>
@@ -66,6 +72,7 @@ export default function AddEditProjectForm() {
                                 className={`${styles.formField} ${styles.hoverFocusActive}`}
                                 aria-label="Project description"
                                 name="description" 
+                                defaultValue={project.description}
                                 cols="10" 
                                 rows="3"
                                 ></textarea>
@@ -81,6 +88,7 @@ export default function AddEditProjectForm() {
                                 type="date"
                                 aria-label="Project due date"
                                 name="dueDate"
+                                defaultValue={formatDateForInput(project.dueDate)}
                             />
                         </label>
                     </section>
@@ -89,6 +97,7 @@ export default function AddEditProjectForm() {
                     <button 
                         className={`${styles.formButton} ${styles.formField} ${styles.hoverFocusActive} bg-gray-300`}
                         type="button"
+                        onClick={handleClick}
                     >
                         Cancel
                     </button>

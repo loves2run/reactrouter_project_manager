@@ -1,5 +1,5 @@
 import { Form, useLoaderData, useNavigation } from "react-router";
-import { getProject } from "../data/projects";
+import { getProject, formatDateForDisplay } from "../data/projects";
 
 //Project loader- gets single project by ID
 export async function projectLoader({ params }) {
@@ -30,7 +30,7 @@ export default function ProjectDisplay(){
         <div className={`${navigation.state ==='loading' ? styles.loading : ''} ${styles.displayDiv}`}>
             <h1 className="font-bold text-lg">{project.projectName}</h1>
             <p>{project.description}</p>
-            <p>{project.dueDate}</p>
+            <p>{formatDateForDisplay(project.dueDate)}</p>
             <div className="flex justify-end gap-2">
                 <Form action="edit">
                     <button 

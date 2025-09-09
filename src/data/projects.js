@@ -29,6 +29,46 @@ const projectsData = [
     }
 ];
 
+export function formatDateForDisplay(dateString) {
+    if (!dateString) return '';
+    
+    try {
+        // If it's already MM/DD/YYYY, return as-is
+        if (dateString.includes('/')) return dateString;
+        
+        // If it's YYYY-MM-DD, convert to MM/DD/YYYY
+        if (dateString.includes('-')) {
+            const [year, month, day] = dateString.split('-');
+            return `${month}/${day}/${year}`;
+        }
+        
+        return dateString;
+    } catch {
+        return '';
+    }
+}
+
+export function formatDateForInput(dateString) {
+    if (!dateString) return '';
+    
+    try {
+        // If it's already YYYY-MM-DD, return as-is
+        if (/^\d{4}-\d{2}-\d{2}$/.test(dateString)) return dateString;
+        
+        // If it's MM/DD/YYYY, parse manually to avoid timezone issues
+        if (dateString.includes('/')) {
+            const [month, day, year] = dateString.split('/');
+            if (month && day && year) {
+                return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
+            }
+        }
+        
+        return '';
+    } catch {
+        return '';
+    }
+}
+
 function fakeNetwork(key) {
     return new Promise(resolve => {
         setTimeout(resolve, Math.random() * 800);
