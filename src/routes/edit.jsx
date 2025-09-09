@@ -29,7 +29,7 @@ export async function editProjectLoader({ params }) {
 const styles = {
     formField: "rounded-sm px-2.5 py-1 border-2 border-gray-200",
     formButton: "text-[1rem]",
-    saveButton: "text-white bg-[#3992ff] hover:bg-white hover:text-[#3992ff] hover:border-gray-300 focus:bg-white focus:text-text-[#3992ff] focus:border-gray-300 active:bg-white active: text-text-[#3992ff] active:border-gray-300",
+    saveButton: "text-white bg-[#3992ff] hover:bg-white hover:text-[#3992ff] hover:border-gray-300 focus:bg-white focus:text-[#3992ff] focus:border-gray-300 active:bg-white active: text-text-[#3992ff] active:border-gray-300",
     hoverFocusActive: "hover:border-sky-500 focus:border-sky-500 active:border-sky-500",
     formLabel: "flex flex-col gap-1",
 };
