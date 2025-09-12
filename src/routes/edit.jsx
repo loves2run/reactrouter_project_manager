@@ -4,7 +4,12 @@ import {
     redirect, 
     useNavigate,
 } from 'react-router';
-import { getProject, updateProject, formatDateForInput } from '../data/projects.js';
+import { 
+    getProject, 
+    updateProject, 
+    formatDateForInput,
+    deleteProject 
+} from '../data/projects.js';
 
 export async function editProjectAction ({ request, params}) {
     const formData = await request.formData();
@@ -38,7 +43,16 @@ export default function AddEditProjectForm() {
     const project  = useLoaderData();
     const navigate = useNavigate();
 
-    const handleClick = () => {navigate(-1)};
+//on cancel click, if untitled project then delete project. Then navigate back.
+//made handleClick async to avoid navigate(-1) running before deleteProject() function.    
+const handleClick = async () => {
+        if (project.projectName === 'Untitled Project') {
+            //adding await here ensures navigate(-1) will not run until deleteProject runs.
+            await deleteProject(project.id);
+        }
+        console.log(project.id)
+        navigate(-1)
+    };
 
     return (
         <div className="flex w-full p-5 border-2 border-gray-300 rounded-sm">
